@@ -1,10 +1,9 @@
 pipeline {
     
-    
     environment {
             imagename = "httpd"
             dockerImage = ''
-}
+            }
     agent { node { label "LinuxSlave" }}
 
     stages {
@@ -16,10 +15,11 @@ pipeline {
                   image 'httpd'
                 }
             }
-            script {
+            steps {
                  echo 'Building docker alpine..'
-                 dockerImage = docker.build imagename
-            }
+                 docker.image('httpd').withRun('-i -t --name nicehttpd -p 8080:80 httpd')
+                
+                 }
         }
         stage('Test') {
             steps {
