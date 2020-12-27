@@ -3,9 +3,16 @@ pipeline {
 
     stages {
         stage('Build') {
+            
+             agent {
+                docker {
+                  label 'docker'  // both label and image
+                  image 'image 'node:14-alpine''
+                }
+            }
             steps {
-                echo 'Building docker alpine..'
-                docker run alpine echo "Hello World"
+                 echo 'Building docker alpine..'
+                 sh 'mvn --version'
             }
         }
         stage('Test') {
