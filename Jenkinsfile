@@ -1,30 +1,10 @@
 pipeline {
-  agent { label 'linux' }
-
-  tools {
-    maven 'M3'
-  }
-  stages {
-    stage('checkout') {
-      steps {
-        git 'https://github.com/levep/maven-quickstart.git'
-      }
+    agent { docker { image 'python:3.5.1' } }
+    stages {
+        stage('build') {
+            steps {
+                sh 'python --version'
+            }
+        }
     }
-    stage('Build') {
-      steps {
-        sh 'mvn clean compile'
-      }
-    }
-    stage('Test') {
-      steps {
-        sh 'mvn test'
-        junit '**/target/surefire-reports/TEST-*.xml'
-      }
-    }
-    stage('Package') {
-      steps {
-        sh 'mvn package'
-      }
-    }
-  }
 }
