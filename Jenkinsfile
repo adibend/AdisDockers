@@ -12,14 +12,13 @@ pipeline {
              agent {
                 docker {
                   label 'LinuxSlave'   
-                  image 'httpd'
+                  image 'maven:3.5-alpine'
                 }
             }
             steps {
                  echo 'Building docker alpine..'
-                 docker.image('httpd').withRun('-i -t --name nicehttpd -p 8080:80 httpd')
-                
-                 }
+                 sh 'mvn --version'
+                }
         }
         stage('Test') {
             steps {
