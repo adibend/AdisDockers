@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo 'Building docker alpine..'
+                docker run alpine echo "Hello World"
             }
         }
         stage('Test') {
