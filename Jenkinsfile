@@ -6,6 +6,7 @@ pipeline {
             
              agent {
                 docker {
+                  label 'LinuxSlave'   
                   image 'maven:3-alpine'
                 }
             }
