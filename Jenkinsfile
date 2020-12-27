@@ -7,7 +7,7 @@ pipeline {
              agent {
                 docker {
                   label 'docker'  // both label and image
-                  image 'image 'node:14-alpine''
+                  image 'maven:3-alpine'
                 }
             }
             steps {
