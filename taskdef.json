@@ -1,0 +1,40 @@
+{
+    "executionRoleArn": "arn:aws:iam::${APP_ACCOUNT_ID}:role/role-${REPO_NAME}-taskdef-execution-revuze-${APP_NAME}",
+    "containerDefinitions": [
+            {
+                "name": "dkr-${REPO_NAME}-revuze-${APP_NAME}",
+                "image": "${IMAGE_ID}",
+                "cpu": 0,
+                "environment": [
+                        {
+                                "name": "ASPNETCORE_ENVIRONMENT",
+                                "value": "${ASPNETCORE_ENVIRONMENT}"
+                        }
+                ],
+                "essential": true,
+                "portMappings": [
+                        {
+                                "hostPort": ${PORT},
+                                "protocol": "tcp",
+                                "containerPort": ${PORT}
+                        }
+                ],
+                "logConfiguration": {
+                        "logDriver": "awslogs",
+                        "options": {
+                                "awslogs-group": "/ecs/taskdef-${REPO_NAME}-revuze-${APP_NAME}",
+                                "awslogs-region": "${AWS_REGION}",
+                                "awslogs-stream-prefix": "ecs"
+                        }
+                }
+        }
+    ],
+    "requiresCompatibilities": [
+            "FARGATE"
+    ],
+    "networkMode": "awsvpc",
+    "cpu": "512",
+    "memory": "1024",
+    "family": "taskdef-${REPO_NAME}-revuze-${APP_NAME}",
+    "taskRoleArn": "arn:aws:iam::${APP_ACCOUNT_ID}:role/role-${REPO_NAME}-taskdef-revuze-${APP_NAME}"
+}
